@@ -19,26 +19,27 @@ class Tobik:
         pg.draw.circle(window, self.color, (self.x, self.y), self.radius)
 
 
-def change_all(tob):
-    tob.move()
+def change_all(tobiks):
+    for tob in tobiks:
+        tob.move()
 
 
-def draw_all(window, tob):
+def draw_all(window, tobiks):
     window.fill((0, 0, 0))
-    tob.draw(window)
+    for tob in tobiks:
+        tob.draw(window)
     pg.display.update()
 
 
 def main():
     pg.init()
     window = pg.display.set_mode((w, h))
-    tob = Tobik(50, 50, 50, (200, 30, 150), 9)
+    tobiks = []
     ticker = pg.time.Clock()
-
     while True:
-        change_all(tob)
+        change_all(tobiks)
 
-        draw_all(window, tob)
+        draw_all(window, tobiks)
 
         ticker.tick(fps)
 
@@ -48,8 +49,8 @@ def main():
                 exit()
             elif event.type == pg.MOUSEBUTTONDOWN:
                 x, y = pg.mouse.get_pos()
-                tob.x = x
-                tob.y = y
+                tob = Tobik(x, y, 50, (200, 30, 150), 9)
+                tobiks.append(tob)
 
 
 main()
